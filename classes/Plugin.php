@@ -8,6 +8,10 @@ namespace Required\OpenInbound;
 use OI;
 
 class Plugin {
+	/**
+	 * URL to the tracking script.
+	 */
+	const OI_TRACKER_URL = '//dims-api.netnode.ch/tracker.js';
 
 	/**
 	 * Registers all the needed hooks.
@@ -18,6 +22,10 @@ class Plugin {
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
 
+		// Add tracker script to front-end.
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_filter( 'script_loader_tag', [ $this, 'add_async_attr' ], 10, 2 );
+
 		// Contact Form 7 tracking
 		add_action( 'wpcf7_before_send_mail', [ $this, 'track_contact_form7' ] );
 	}
@@ -27,6 +35,42 @@ class Plugin {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'openinbound', false, basename( dirname( __DIR__ ) ) . '/languages' );
+	}
+
+	/**
+	 * Add the OI tracker.js script to the front-end.
+	 */
+	public function enqueue_scripts() {
+		// Get the tracking_id option.
+		$tracking_id = get_option( 'openinbound_tracking_id' );
+
+		// Don't register the script when no tracking_id is set.
+		if ( false === $tracking_id || empty( $tracking_id ) ) {
+			return;
+		}
+
+		/**
+		 * Add ?tracking_id=<tracking_id> to the tracker.js URL.
+		 */
+		$tracker_url = add_query_arg( 'tracking_id', trim( $tracking_id ), self::OI_TRACKER_URL );
+
+		wp_enqueue_script( 'openinbound', $tracker_url, null, '1.0.0', true );
+	}
+
+	/**
+	 * Add async loading to the script.
+	 *
+	 * @param string $tag script tag.
+	 * @param string $handle script name.
+	 *
+	 * @return string mixed script tag with async option.
+	 */
+	public function add_async_attr( $tag, $handle ) {
+		if ( 'openinbound' !== $handle ) {
+			return $tag;
+		}
+
+		return str_replace( ' src', ' async="async" src', $tag );
 	}
 
 	/**
