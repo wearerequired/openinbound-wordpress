@@ -1,17 +1,35 @@
 {
-    "name": "lukasfischer/openinbound-wordpress",
-    "description": "OpenInbound Module for Wordpress",
-    "type": "project",
-    "require-dev": {
-        "openinbound/openinbound-api": "dev-master"
+  "name": "lukasfischer/openinbound-wordpress",
+  "description": "Connector plugin for OpenInbound.com",
+  "version": "1.0.0",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "required",
+      "email": "support@required.ch",
+      "homepage": "https://required.com",
+      "role": "Developer"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "lukasfischer",
-            "email": "lf@netnode.ch"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {}
+    {
+      "name": "netnode",
+      "email": "lf@netnode.ch",
+      "homepage": "https://netnode.ch",
+      "role": "Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Required\\OpenInbound\\": "classes"
+    }
+  }
 }
