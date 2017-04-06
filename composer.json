@@ -22,10 +22,15 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
     }
   ],
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.4",
+    "openinbound/openinbound-api": "dev-master"
   },
   "autoload": {
     "psr-4": {

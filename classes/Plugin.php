@@ -5,6 +5,8 @@
 
 namespace Required\OpenInbound;
 
+use OI;
+
 class Plugin {
 
 	/**
