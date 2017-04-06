@@ -17,6 +17,9 @@ class Plugin {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+
+		// Contact Form 7 tracking
+		add_action( 'wpcf7_before_send_mail', [ $this, 'track_contact_form7' ] );
 	}
 
 	/**
@@ -57,7 +60,7 @@ class Plugin {
 			'openinbound_keys',
 			[
 				'label_for' => 'openinbound_api_key',
-				'class' => 'openinbound_row',
+				'class'     => 'openinbound_row',
 			]
 		);
 
@@ -72,7 +75,7 @@ class Plugin {
 			'openinbound_keys',
 			[
 				'label_for' => 'openinbound_tracking_id',
-				'class' => 'openinbound_row',
+				'class'     => 'openinbound_row',
 			]
 		);
 
@@ -169,5 +172,43 @@ class Plugin {
 		?>
 		<input class="regular-text code" id="<?php echo esc_attr( $args['label_for'] ); ?>" value="<?php esc_attr_e( $option ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" />
 		<?php
+	}
+
+	public function track_contact_form7( $form ) {
+		/*
+
+     // Demo code from Drupal
+    if (valid_email_address($component_data['e_mail'][0])) {
+        $data['email'] = $component_data['e_mail'][0];
+    }
+    if (valid_email_address($component_data['email'][0])) {
+        $data['email'] = $component_data['email'][0];
+    }
+    if ($component_data['company_name'][0]) {
+        $data['company_name'] = $component_data['company_name'][0];
+    }
+    if ($component_data['company'][0]) {
+        $data['company_name'] = $component_data['company'][0];
+    }
+    if ($component_data['phone'][0]) {
+        $data['phone'] = $component_data['phone'][0];
+    }
+    if ($component_data['first_name'][0]) {
+        $data['first_name'] = $component_data['first_name'][0];
+    }
+    if ($component_data['last_name'][0]) {
+        $data['last_name'] = $component_data['last_name'][0];
+    }
+
+
+    $oi = new OI(variable_get('openinbound_tracking_id'), variable_get('openinbound_api_key'));
+    $oi->updateContact($_COOKIE['_oi_contact_id'], $data);
+
+    $properties = array();
+    $properties['title'] = 'Form submission by '.$data['email'].' - '.$node->title;
+    $properties['event_type'] = 'submission';
+    $properties['raw'] = json_encode($component_data);
+    $oi->addEvent($_COOKIE['_oi_contact_id'], $properties);
+    */
 	}
 }
