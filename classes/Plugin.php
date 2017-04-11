@@ -55,6 +55,7 @@ class Plugin {
 		$tracker_url = add_query_arg( 'tracking_id', trim( $tracking_id ), self::OI_TRACKER_URL );
 
 		wp_enqueue_script( 'openinbound', $tracker_url, null, '1.0.0', true );
+		wp_script_add_data( 'openinbound', 'async', true );
 	}
 
 	/**
@@ -66,11 +67,10 @@ class Plugin {
 	 * @return string mixed script tag with async option.
 	 */
 	public function add_async_attr( $tag, $handle ) {
-		if ( 'openinbound' !== $handle ) {
-			return $tag;
+		if ( wp_scripts()->get_data( $handle, 'async' ) ) {
+			$tag = str_replace( '></', ' async></', $tag );
 		}
-
-		return str_replace( ' src', ' async="async" src', $tag );
+		return $tag;
 	}
 
 	/**
