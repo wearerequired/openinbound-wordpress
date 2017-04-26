@@ -13,6 +13,10 @@ class Plugin {
 	 */
 	const OI_TRACKER_URL = '//dims-api.netnode.ch/tracker.js';
 
+	protected $oi_tracking_id_meta = 'openinbound_tracking_id';
+
+	protected $oi_api_key_meta = 'openinbound_api_key';
+
 	/**
 	 * Registers all the needed hooks.
 	 */
@@ -42,7 +46,7 @@ class Plugin {
 	 */
 	public function enqueue_scripts() {
 		// Get the tracking_id option.
-		$tracking_id = get_option( 'openinbound_tracking_id' );
+		$tracking_id = get_option( $this->oi_tracking_id_meta );
 
 		// Don't register the script when no tracking_id is set.
 		if ( false === $tracking_id || empty( $tracking_id ) ) {
@@ -61,7 +65,7 @@ class Plugin {
 	/**
 	 * Add async loading to the script.
 	 *
-	 * @param string $tag script tag.
+	 * @param string $tag    script tag.
 	 * @param string $handle script name.
 	 *
 	 * @return string mixed script tag with async option.
@@ -70,6 +74,7 @@ class Plugin {
 		if ( wp_scripts()->get_data( $handle, 'async' ) ) {
 			$tag = str_replace( '></', ' async></', $tag );
 		}
+
 		return $tag;
 	}
 
@@ -97,13 +102,13 @@ class Plugin {
 		 * Register new settings field in the "openinbound_keys" section on the "openinbound" page.
 		 */
 		add_settings_field(
-			'openinbound_api_key',
+			$this->oi_api_key_meta,
 			__( 'API Key', 'openinbound' ),
 			[ $this, 'field_cb' ],
 			'openinbound',
 			'openinbound_keys',
 			[
-				'label_for' => 'openinbound_api_key',
+				'label_for' => $this->oi_api_key_meta,
 				'class'     => 'openinbound_row',
 			]
 		);
@@ -112,13 +117,13 @@ class Plugin {
 		 * Register new settings field in the "openinbound_keys" section on the "openinbound" page.
 		 */
 		add_settings_field(
-			'openinbound_tracking_id',
+			$this->oi_tracking_id_meta,
 			__( 'Tracking ID', 'openinbound' ),
 			[ $this, 'field_cb' ],
 			'openinbound',
 			'openinbound_keys',
 			[
-				'label_for' => 'openinbound_tracking_id',
+				'label_for' => $this->oi_tracking_id_meta,
 				'class'     => 'openinbound_row',
 			]
 		);
@@ -126,8 +131,8 @@ class Plugin {
 		/**
 		 * Register settings for the "openinbound" page.
 		 */
-		register_setting( 'openinbound', 'openinbound_tracking_id', 'esc_attr' );
-		register_setting( 'openinbound', 'openinbound_api_key', 'esc_attr' );
+		register_setting( 'openinbound', $this->oi_tracking_id_meta, 'esc_attr' );
+		register_setting( 'openinbound', $this->oi_api_key_meta, 'esc_attr' );
 	}
 
 	/**
