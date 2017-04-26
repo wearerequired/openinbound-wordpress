@@ -100,7 +100,7 @@ class Plugin {
 		add_settings_section(
 			'openinbound_keys',
 			__( 'API Key &amp; Tracking ID for your website', 'openinbound' ),
-			[ $this, 'section_cb' ],
+			[ $this, 'keys_section_cb' ],
 			'openinbound'
 		);
 
@@ -145,14 +145,12 @@ class Plugin {
 	 * Adding a custom admin page.
 	 */
 	public function register_admin_menu() {
-		add_menu_page(
+		add_options_page(
 			__( 'OpenInbound Settings', 'openinbound' ),
 			__( 'OpenInbound', 'openinbound' ),
 			'manage_options',
 			'openinbound',
-			[ $this, 'render_admin_page' ],
-			'dashicons-format-status',
-			75
+			[ $this, 'render_admin_page' ]
 		);
 	}
 
@@ -163,23 +161,6 @@ class Plugin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-
-		/**
-		 * Check whether the settings are saved properly.
-		 */
-		if ( isset( $_GET['settings-updated'] ) ) {
-			add_settings_error(
-				'openinbound_messages',
-				'openinbound_message',
-				__( 'Settings Saved! Enjoy data flowing into OpenInbound.', 'openinbound' ),
-				'updated'
-			);
-		}
-
-		/**
-		 * Show setting errors/messages.
-		 */
-		settings_errors( 'openinbound_messages' );
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -204,11 +185,11 @@ class Plugin {
 	}
 
 	/**
-	 * Callback when rendering the section on the "openinbound" page.
-	 *
-	 * @param array $args setting args.
-	 */
-	public function section_cb( $args ) {
+ * Callback when rendering the section on the "openinbound" page.
+ *
+ * @param array $args setting args.
+ */
+	public function keys_section_cb( $args ) {
 		?>
 		<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Get your API Key and Tracking ID from the OpenInbound.com Settings page.', 'openinbound' ); ?></p>
 		<?php
