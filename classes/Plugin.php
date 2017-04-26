@@ -25,6 +25,7 @@ class Plugin {
 		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
+		add_action( 'plugin_action_links_openinbound-wordpress/openinbound-wordpress.php', [ $this, 'plugin_action_links' ] );
 
 		// Add tracker script to front-end.
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
@@ -39,6 +40,11 @@ class Plugin {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'openinbound', false, basename( dirname( __DIR__ ) ) . '/languages' );
+	}
+
+	public function plugin_action_links( $links ) {
+		$links[] = '<a href="' . admin_url( 'options-general.php?page=openinbound' ) . '">' . __( 'Settings', 'openinbound' ) . '</a>';
+		return $links;
 	}
 
 	/**
