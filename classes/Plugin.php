@@ -39,7 +39,7 @@ class Plugin {
 	 * Load the plugin's translations.
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'openinbound', false, basename( dirname( __DIR__ ) ) . '/languages' );
+		load_plugin_textdomain( 'openinbound' );
 	}
 
 	public function plugin_action_links( $links ) {
