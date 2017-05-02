@@ -26,11 +26,16 @@
     {
       "type": "composer",
       "url": "https://packagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/wearerequired/wp-requirements-check"
     }
   ],
   "require": {
     "php": ">=5.4",
-    "openinbound/openinbound-api": "dev-master"
+    "openinbound/openinbound-api": "dev-master",
+    "wearerequired/wp-requirements-check": "dev-master"
   },
   "autoload": {
     "psr-4": {
