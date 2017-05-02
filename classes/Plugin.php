@@ -137,8 +137,8 @@ class Plugin {
 		/**
 		 * Register settings for the "openinbound" page.
 		 */
-		register_setting( 'openinbound', $this->oi_tracking_id_meta, 'esc_attr' );
-		register_setting( 'openinbound', $this->oi_api_key_meta, 'esc_attr' );
+		register_setting( 'openinbound', $this->oi_tracking_id_meta, 'sanitize_text_field' );
+		register_setting( 'openinbound', $this->oi_api_key_meta, 'sanitize_text_field' );
 	}
 
 	/**
