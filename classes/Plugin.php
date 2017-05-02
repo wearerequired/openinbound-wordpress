@@ -52,7 +52,7 @@ class Plugin {
 	 */
 	public function enqueue_scripts() {
 		// Get the tracking_id option.
-		$tracking_id = get_option( $this->oi_tracking_id_meta );
+		$tracking_id = get_option( $this->oi_tracking_id_meta, false );
 
 		// Don't register the script when no tracking_id is set.
 		if ( false === $tracking_id || empty( $tracking_id ) ) {
@@ -204,7 +204,7 @@ class Plugin {
 		if ( ! isset( $args['label_for'] ) ) {
 			return;
 		}
-		$option = get_option( $args['label_for'] );
+		$option = get_option( $args['label_for'], '' );
 		?>
 		<input class="regular-text code" id="<?php echo esc_attr( $args['label_for'] ); ?>" value="<?php esc_attr_e( $option ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" />
 		<?php
