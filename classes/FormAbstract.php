@@ -1,38 +1,48 @@
 <?php
+/**
+ * Holds the abstract form class.
+ *
+ * @package Required\OpenInbound
+ */
 
 namespace Required\OpenInbound;
 
 use OI;
 
 /**
- * Class FormAbstract
- * @package Required\OpenInbound
+ * Default base form class.
+ *
+ * @since 1.0.0
  */
 abstract class FormAbstract implements FormInterface {
-
 	/**
-	 * @var OI API.
+	 * @inheritdoc
 	 */
-	protected $OI_API;
+	public function send_form_data( $data, $form_title ) {
+		$tracking_id = get_option( 'openinbound_tracking_id', '' );
+		$api_key     = get_option( 'openinbound_api_key', '' );
 
-	/**
-	 * Send the collected form data to OpenInbound
-	 *
-	 * @param mixed $data form data or object.
-	 */
-	public function sendFormData( $data ) {
-
-		if ( ! class_exists( 'OI' ) ) {
+		if ( empty( $tracking_id ) || empty( $api_key ) ) {
 			return;
 		}
 
-		$this->OI_API = new OI();
+		$oi = new OI( $tracking_id, $api_key );
+
+		$oi->updateContact( $_COOKIE['_oi_contact_id'], $data );
+
+		$properties = [
+			'title'      => sprintf( 'Form submission by %1$s - %2$s', $data['email'], $form_title ),
+			'event_type' => 'submission',
+			'raw'        => json_encode( $data ),
+		];
+
+		$oi->addEvent( $_COOKIE['_oi_contact_id'], $properties );
 	}
 
 	/**
-	 * Show help section on the settings screen.
+	 * @inheritdoc
 	 */
-	public function showHelpContent() {
-		// TODO: Implement showHelpContent() method.
+	public function show_help_content() {
+		// TODO: Implement show_help_content() method.
 	}
 }

@@ -6,6 +6,8 @@
 namespace Required\OpenInbound;
 
 use Required\Newsletter\GravityFormsController;
+use WPCF7_ContactForm;
+use WPCF7_Submission;
 
 class Plugin {
 	/**
@@ -214,7 +216,46 @@ class Plugin {
 		<?php
 	}
 
-	public function track_contact_form7( $form ) {}
+	/**
+	 * Tracks Contact Form 7 form submissions.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param WPCF7_ContactForm $form The form that was submitted.
+	 */
+	public function track_contact_form7( WPCF7_ContactForm $form ) {
+		$submission = WPCF7_Submission::get_instance();
+		$data = [];
+
+		$posted_data = $submission->get_posted_data();
+
+		foreach (
+			// Todo: Make filterable.
+			[
+				'email'        => 'email',
+				'e-mail'       => 'email',
+				'name'         => 'name',
+				'first_name'   => 'first_name',
+				'first-name'   => 'first_name',
+				'last_name'    => 'last_name',
+				'last-name'    => 'last_name',
+				'phone'        => 'phone',
+				'phone-number' => 'phone',
+				'company'      => 'company_name',
+				'company_name' => 'company_name',
+				'company-name' => 'company_name',
+			] as $cf7_field => $oi_field
+		) {
+			if ( isset( $posted_data[ $cf7_field ] ) ) {
+				$data[ $oi_field ] = $posted_data[ $cf7_field ];
+			}
+		}
+
+		$contact_form_7 = new ContactForm7();
+
+		$contact_form_7->send_form_data( $data, $form->title() );
+	}
 
 	/**
 	 * Registers the Gravity Forms feed add-on.
