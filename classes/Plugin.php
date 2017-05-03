@@ -5,7 +5,7 @@
 
 namespace Required\OpenInbound;
 
-use OI;
+use Required\Newsletter\GravityFormsController;
 
 class Plugin {
 	/**
@@ -31,8 +31,11 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter( 'script_loader_tag', [ $this, 'add_async_attr' ], 10, 2 );
 
-		// Contact Form 7 tracking
+		// Contact Form 7 tracking.
 		add_action( 'wpcf7_before_send_mail', [ $this, 'track_contact_form7' ] );
+
+		// Gravity Forms tracking.
+		add_action( 'gform_loaded', [ $this, 'track_gravity_forms' ] );
 	}
 
 	/**
@@ -247,5 +250,16 @@ class Plugin {
     $properties['raw'] = json_encode($component_data);
     $oi->addEvent($_COOKIE['_oi_contact_id'], $properties);
     */
+	}
+
+	/**
+	 * Registers the Gravity Forms feed add-on.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function track_gravity_forms() {
+		\GFForms::include_feed_addon_framework();
+		\GFAddOn::register( GravityFormsFeed::class );
 	}
 }
