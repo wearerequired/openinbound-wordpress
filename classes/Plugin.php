@@ -204,9 +204,10 @@ class Plugin {
 		if ( ! isset( $args['label_for'] ) ) {
 			return;
 		}
+
 		$option = get_option( $args['label_for'], '' );
 		?>
-		<input class="regular-text code" id="<?php echo esc_attr( $args['label_for'] ); ?>" value="<?php esc_attr( $option ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" />
+		<input class="regular-text code" id="<?php echo esc_attr( $args['label_for'] ); ?>" value="<?php echo esc_attr( $option ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" type="text" />
 		<?php
 	}
 
