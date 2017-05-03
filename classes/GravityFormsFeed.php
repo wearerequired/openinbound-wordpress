@@ -180,6 +180,13 @@ class GravityFormsFeed extends GFFeedAddOn {
 			),
 		);
 
+		/**
+		 * Filters the fields mapping from OpenInbound to Gravity Forms.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $fields The fields to map.
+		 */
 		return apply_filters( 'openinbound_gf_fields_mapping', $fields );
 	}
 
