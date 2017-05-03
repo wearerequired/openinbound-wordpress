@@ -1,23 +1,37 @@
 <?php
+/**
+ * Holds the default form interface.
+ *
+ * @package Required\OpenInbound
+ */
 
 namespace Required\OpenInbound;
 
+/**
+ * Default form interface.
+ *
+ * This should be implemented by the various form integrations.
+ *
+ * @since 1.0.0
+ */
 interface FormInterface {
+	/**
+	 * Sends the collected form data to OpenInbound.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param mixed $data Form data to process.
+	 * @param string $form_title The form title.
+	 */
+	public function send_form_data( $data, $form_title );
 
 	/**
-	 * Method to hook into the form plugin and send the data to OpenInbound.
+	 * Displays a help section on the settings screen.
 	 *
-	 * @param $data
-	 *
-	 * @return mixed
+	 * @since 1.0.0
+	 * @access public
 	 */
-	public function sendFormData( $data );
-
-	/**
-	 * Method to display help section on the settings screen.
-	 *
-	 * @return mixed
-	 */
-	public function showHelpContent();
+	public function show_help_content();
 
 }
