@@ -55,10 +55,10 @@ class Plugin {
 	 */
 	public function enqueue_scripts() {
 		// Get the tracking_id option.
-		$tracking_id = get_option( $this->oi_tracking_id_meta, false );
+		$tracking_id = get_option( $this->oi_tracking_id_meta, '' );
 
 		// Don't register the script when no tracking_id is set.
-		if ( false === $tracking_id || empty( $tracking_id ) ) {
+		if ( empty( $tracking_id ) ) {
 			return;
 		}
 
