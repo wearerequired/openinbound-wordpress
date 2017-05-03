@@ -17,31 +17,49 @@ use OI;
  */
 class GravityFormsFeed extends GFFeedAddOn {
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string Version number of the add-on.
 	 */
 	protected $_version = '1.0.0';
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string Gravity Forms minimum version requirement.
 	 */
 	protected $_min_gravityforms_version = '1.9.14';
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string URL-friendly identifier.
 	 */
 	protected $_slug = 'openinbound';
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string Full path to the plugin.
 	 */
 	protected $_full_path = __FILE__;
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string URL to the add-on website.
 	 */
 	protected $_url = 'https://openinbound.com';
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var array Members plugin integration. List of capabilities to add to roles.
 	 */
 	protected $_capabilities = [
@@ -49,17 +67,26 @@ class GravityFormsFeed extends GFFeedAddOn {
 	];
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string Required capability for the settings page.
 	 */
 	protected $_capabilities_settings_page = 'gravityforms_openinbound';
 
 	/**
+	 * @since 1.0.0
+	 * @access protected
+	 *
 	 * @var string Required capability to edit form settings.
 	 */
 	protected $_capabilities_form_settings = 'gravityforms_openinbound';
 
 	/**
-	 * Add-on instance
+	 * Add-on instance.
+	 *
+	 * @since 1.0.0
+	 * @access protected
 	 *
 	 * @var self
 	 */
@@ -67,6 +94,9 @@ class GravityFormsFeed extends GFFeedAddOn {
 
 	/**
 	 * Get instance of this class.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 *
 	 * @return self
 	 */
@@ -80,6 +110,9 @@ class GravityFormsFeed extends GFFeedAddOn {
 
 	/**
 	 * Register needed plugin hooks.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 */
 	public function init() {
 		$this->_title       = __( 'OpenInbound', 'openinbound' );
@@ -90,6 +123,9 @@ class GravityFormsFeed extends GFFeedAddOn {
 
 	/**
 	 * Prepare settings to be rendered on the feed settings tab.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 *
 	 * @return array The feed settings fields
 	 */
@@ -145,8 +181,8 @@ class GravityFormsFeed extends GFFeedAddOn {
 	/**
 	 * Prepare fields for field mapping feed settings field.
 	 *
+	 * @since 1.0.0
 	 * @access public
-	 * @since  1.0.0
 	 *
 	 * @return array Fields for mapping.
 	 */
@@ -159,12 +195,12 @@ class GravityFormsFeed extends GFFeedAddOn {
 				'field_type' => array( 'email' ),
 			),
 			array(
-				'name'     => 'first_name',
+				'name'     => 'firstname',
 				'label'    => __( 'First Name', 'openinbound' ),
 				'required' => false,
 			),
 			array(
-				'name'     => 'last_name',
+				'name'     => 'lastname',
 				'label'    => __( 'Last Name', 'openinbound' ),
 				'required' => false,
 			),
@@ -193,6 +229,9 @@ class GravityFormsFeed extends GFFeedAddOn {
 	/**
 	 * Configure which columns should be displayed on the feed list page.
 	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
 	 * @return array Additional columns.
 	 */
 	public function feed_list_columns() {
@@ -204,6 +243,7 @@ class GravityFormsFeed extends GFFeedAddOn {
 	/**
 	 * Process the feed and subscribe the user to the list.
 	 *
+	 * @since 1.0.0
 	 * @access public
 	 *
 	 * @param array $feed  The feed object to be processed.
