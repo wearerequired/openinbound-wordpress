@@ -34,7 +34,7 @@ class Plugin {
 		add_filter( 'script_loader_tag', [ $this, 'add_async_attr' ], 10, 2 );
 
 		// Contact Form 7 tracking.
-		add_action( 'wpcf7_before_send_mail', [ $this, 'track_contact_form7' ] );
+		add_action( 'wpcf7_mail_sent', [ $this, 'track_contact_form7' ] );
 
 		// Gravity Forms tracking.
 		add_action( 'gform_loaded', [ $this, 'track_gravity_forms' ] );
