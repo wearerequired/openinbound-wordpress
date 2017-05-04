@@ -5,6 +5,8 @@
 
 namespace Required\OpenInbound;
 
+use GFAddOn;
+use GFForms;
 use Required\Newsletter\GravityFormsController;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
@@ -12,12 +14,40 @@ use WPCF7_Submission;
 class Plugin {
 	/**
 	 * URL to the tracking script.
+	 *
+	 * @since 1.0.0
 	 */
 	const OI_TRACKER_URL = '//dims-api.netnode.ch/tracker.js';
 
+	/**
+	 * Tracking ID option name.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 *
+	 * @var string
+	 */
 	protected $oi_tracking_id_meta = 'openinbound_tracking_id';
 
+	/**
+	 * API key option name.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 *
+	 * @var string
+	 */
 	protected $oi_api_key_meta = 'openinbound_api_key';
+
+	/**
+	 * Page hook suffix for the settings page.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 *
+	 * @var string
+	 */
+	protected $page_hook = '';
 
 	/**
 	 * Registers all the needed hooks.
@@ -103,11 +133,8 @@ class Plugin {
 	/**
 	 * Registers setting and settings fields.
 	 *
-	 * @uses register_setting()
-	 *
-	 * @uses add_settings_section()
-	 *
-	 * @uses add_settings_field()
+	 * @since 1.0.0
+	 * @access public
 	 */
 	public function register_settings() {
 		/**
@@ -137,6 +164,9 @@ class Plugin {
 
 		/**
 		 * Register new settings field in the "openinbound_keys" section on the "openinbound" page.
+		 *
+		 * @since 1.0.0
+		 * @access public
 		 */
 		add_settings_field(
 			$this->oi_tracking_id_meta,
@@ -150,18 +180,18 @@ class Plugin {
 			]
 		);
 
-		/**
-		 * Register settings for the "openinbound" page.
-		 */
 		register_setting( 'openinbound', $this->oi_tracking_id_meta, 'sanitize_text_field' );
 		register_setting( 'openinbound', $this->oi_api_key_meta, 'sanitize_text_field' );
 	}
 
 	/**
 	 * Adding a custom admin page.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 */
 	public function register_admin_menu() {
-		add_options_page(
+		$this->page_hook = add_options_page(
 			__( 'OpenInbound Settings', 'openinbound' ),
 			__( 'OpenInbound', 'openinbound' ),
 			'manage_options',
@@ -170,6 +200,12 @@ class Plugin {
 		);
 	}
 
+	/**
+	 * Displays the settings page content.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
 	public function render_admin_page() {
 		/**
 		 * Check user capabilities.
@@ -201,10 +237,13 @@ class Plugin {
 	}
 
 	/**
- * Callback when rendering the section on the "openinbound" page.
- *
- * @param array $args setting args.
- */
+	 * Callback when rendering the section on the "openinbound" page.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @param array $args Setting arguments.
+	 */
 	public function keys_section_cb( $args ) {
 		?>
 		<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Get your API Key and Tracking ID from the OpenInbound.com Settings page.', 'openinbound' ); ?></p>
@@ -213,6 +252,9 @@ class Plugin {
 
 	/**
 	 * Renders the input fields for the settings.
+	 *
+	 * @since 1.0.0
+	 * @access public
 	 *
 	 * @param array $args for this field.
 	 */
@@ -275,7 +317,7 @@ class Plugin {
 	 * @access public
 	 */
 	public function track_gravity_forms() {
-		\GFForms::include_feed_addon_framework();
-		\GFAddOn::register( GravityFormsFeed::class );
+		GFForms::include_feed_addon_framework();
+		GFAddOn::register( GravityFormsFeed::class );
 	}
 }
