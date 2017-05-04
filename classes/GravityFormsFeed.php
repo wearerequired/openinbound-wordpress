@@ -195,12 +195,12 @@ class GravityFormsFeed extends GFFeedAddOn {
 				'field_type' => array( 'email' ),
 			),
 			array(
-				'name'     => 'firstname',
+				'name'     => 'first_name',
 				'label'    => __( 'First Name', 'openinbound' ),
 				'required' => false,
 			),
 			array(
-				'name'     => 'lastname',
+				'name'     => 'last_name',
 				'label'    => __( 'Last Name', 'openinbound' ),
 				'required' => false,
 			),
