@@ -17,6 +17,16 @@ use OI;
  */
 class GravityFormsFeed extends GFFeedAddOn {
 	/**
+	 * Do not allow multiple feeds.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 *
+	 * @var bool
+	 */
+	protected $_multiple_feeds = false;
+
+	/**
 	 * @since 1.0.0
 	 * @access protected
 	 *
@@ -148,21 +158,6 @@ class GravityFormsFeed extends GFFeedAddOn {
 						'type'      => 'field_map',
 						'field_map' => $this->fields_for_feed_mapping(),
 						'tooltip'   => '<h6>' . esc_html__( 'Map Fields', 'openinbound' ) . '</h6>' . esc_html__( 'Select which Gravity Form fields pair with their respective OpenInbound fields.', 'openinbound' ),
-					],
-					[
-						'name'    => 'custom_fields',
-						'label'   => __( 'Custom Fields', 'openinbound' ),
-						'type'    => 'dynamic_field_map',
-						'tooltip' => '<h6>' . esc_html__( 'Custom Fields', 'openinbound' ) . '</h6>' . esc_html__( 'Select or create a new custom adapter field to pair with Gravity Forms fields. Any non-alphanumeric characters in custom field names will be converted to underscores. If multiple custom fields use the same name, only the last one using the same name will be exported.', 'openinbound' ),
-					],
-					[
-						'name'           => 'feedCondition',
-						'label'          => __( 'Opt-In Condition', 'openinbound' ),
-						'type'           => 'feed_condition',
-						'checkbox_label' => __( 'Enable', 'openinbound' ),
-						'instructions'   => __( 'Send to OpenInbound if', 'openinbound' ),
-						'tooltip'        => '<h6>' . esc_html__( 'Opt-In Condition', 'openinbound' ) . '</h6>' . esc_html__( 'When the opt-in condition is enabled, form submissions will only be exported when the condition is met. When disabled, all form submissions will be exported.', 'openinbound' ),
-
 					],
 				],
 			],
