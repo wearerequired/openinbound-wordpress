@@ -66,6 +66,8 @@ class Plugin {
 		// Contact Form 7 tracking.
 		add_action( 'wpcf7_mail_sent', [ $this, 'track_contact_form7' ] );
 
+		add_action( 'admin_init', [ new ContactForm7(), 'show_help_content' ] );
+
 		// Gravity Forms tracking.
 		add_action( 'gform_loaded', [ $this, 'track_gravity_forms' ] );
 	}
@@ -283,29 +285,13 @@ class Plugin {
 
 		$posted_data = $submission->get_posted_data();
 
-		foreach (
-			// Todo: Make filterable.
-			[
-				'email'        => 'email',
-				'e-mail'       => 'email',
-				'name'         => 'name',
-				'first_name'   => 'first_name',
-				'first-name'   => 'first_name',
-				'last_name'    => 'last_name',
-				'last-name'    => 'last_name',
-				'phone'        => 'phone',
-				'phone-number' => 'phone',
-				'company'      => 'company_name',
-				'company_name' => 'company_name',
-				'company-name' => 'company_name',
-			] as $cf7_field => $oi_field
-		) {
+		$contact_form_7 = new ContactForm7();
+
+		foreach ( $contact_form_7->get_list_of_field_names() as $cf7_field => $oi_field ) {
 			if ( isset( $posted_data[ $cf7_field ] ) ) {
 				$data[ $oi_field ] = $posted_data[ $cf7_field ];
 			}
 		}
-
-		$contact_form_7 = new ContactForm7();
 
 		$contact_form_7->send_form_data( $data, $form->title() );
 	}
