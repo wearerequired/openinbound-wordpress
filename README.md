@@ -14,7 +14,7 @@ Besides `grunt build`, there's currently also a `checktextdomain` task that can 
 
 **Note:** To be able to use Grunt, you have to install the needed scripts using `npm install` first.
 
-### Release Day
+### Release Day
 
 To prepare a new release, you need to do a few things in advance:
 
