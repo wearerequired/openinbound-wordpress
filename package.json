@@ -1,0 +1,25 @@
+{
+  "name": "openinbound-wordpress",
+  "title": "Connector plugin for OpenInbound.com",
+  "version": "1.0.0",
+  "homepage": "http://openinbound.com/",
+  "license": "GPL-2.0+",
+  "author": {
+    "name": "required",
+    "email": "support@required.ch",
+    "url": "https://required.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukasfischer/openinbound-wordpress"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.0",
+    "grunt-checktextdomain": "^1.0.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "load-grunt-config": "^0.19.0",
+    "time-grunt": "^1.0.0"
+  },
+  "keywords": []
+}

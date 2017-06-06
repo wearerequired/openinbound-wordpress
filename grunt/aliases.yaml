@@ -1,0 +1,7 @@
+default:
+- 'checktextdomain'
+
+# Build task
+build:
+- 'default'
+- 'copy'
