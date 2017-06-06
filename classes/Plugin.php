@@ -7,7 +7,6 @@ namespace Required\OpenInbound;
 
 use GFAddOn;
 use GFForms;
-use Required\Newsletter\GravityFormsController;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
 
