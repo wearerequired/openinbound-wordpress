@@ -24,9 +24,10 @@ To prepare a new release, you need to do a few things in advance:
 
 After that, it basically comes down to this:
 
-1. Update version numbers in `composer.json` and `package.json`.
+1. Update version numbers in `composer.json`, `package.json`, `openinbound.php`.
 2. Update the `Changelog`, `Upgrade Notice` and the `Stable Tag` in `readme.txt`.
 3. Build the plugin using `grunt build`.
    This will create a new folder inside `release` containing the final build. The folder name is based on the version set in step 1.
+4. Optional: Tag the version in Git for a better overview, using `git tag <version>`
 
-After that, you can use the files inside `release/<version>` to commit the changes to the WordPress.org repository. The [Plugin Handbook](https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/) helps you with that.
+After that, you can use the files inside `release/<version>` to commit the changes to the WordPress.org SVN repository. The [Plugin Handbook](https://developer.wordpress.org/plugins/wordpress-org/how-to-use-subversion/) helps you with that.
