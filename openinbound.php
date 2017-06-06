@@ -19,7 +19,7 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 }
 
 if ( ! class_exists( 'WP_Requirements_Check' ) ) {
-	trigger_error( 'Class files not found. Check Composer autoloader.' );
+	trigger_error( 'Class files not found. Check Composer autoloader.', E_USER_WARNING );
 
 	return;
 }
